@@ -41,7 +41,7 @@ const Home = (user: any) => {
         name: "",
         price: ""
     });
-    const [annoncements, setAnnouncements] = useState([]);
+    const [announcements, setAnnouncements] = useState([]);
     const [image , setImage] = useState({name : ""});
     const [name , setName] = useState("")
     const [description , setDescription]  = useState("");
@@ -115,7 +115,43 @@ const Home = (user: any) => {
         setPrice(event.target.value)
     }
 
+    const uploadImage = async () => {
+        console.log("uploadImage")
 
+        const [imageURL, setImageURL] = useState<string | null>(null);
+        const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    
+        const handleFileSelection = (event: React.ChangeEvent<HTMLInputElement>) => {
+            if (event.target.files && event.target.files.length > 0) {
+                setSelectedFile(event.target.files[0]);
+            }
+        };
+
+        if (!selectedFile) {
+            console.error('No file selected');
+            return;
+        }
+
+        try {
+            const formData = new FormData();
+            formData.append('image', selectedFile);
+
+            const response = await fetch('http://localhost:8089/storeImage', {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            console.log(data);
+            setImageURL(data.url); // Update state with the URL of the uploaded image
+        } catch (error) {
+            console.error('Error uploading image:', error);
+        }
+    };
 
     const handleSubmission = (event : any , data : any) => {
         console.log("handleSubmission" , event.target.value)
@@ -460,7 +496,7 @@ const Home = (user: any) => {
 
                                                                 {image?.name &&
                                                                     <>
-                                                                        <Button variant="outlined" component="span" className={'upload-button'}>
+                                                                        <Button variant="outlined" component="span" className={'upload-button'} onClick={(e) => {uploadImage()}}>
                                                                             <Typography style={{fontSize: 'smaller', fontWeight: 'bold'}}>
                                                                                 Upload
                                                                             </Typography>

@@ -32,7 +32,7 @@
     "webpack-merge": "^5.10.0"
   },
   "scripts": {
-    "start": "webpack serve --open --config CanteenOrderingApp-AdminDashboard/config/webpack.dev.js --mode development",
+    "start": "webpack serve --open --config config/webpack.dev.js --mode development",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -57,6 +57,9 @@
   },
   "devDependencies": {
     "html-webpack-plugin": "^5.6.0",
-    "webpack-cli": "^5.1.4"
+    "import-local": "^3.1.0",
+    "webpack": "^5.92.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.4"
   }
 }

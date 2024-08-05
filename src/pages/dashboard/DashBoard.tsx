@@ -66,7 +66,7 @@ const DashBoard = () => {
                             startDecorator={<DownloadRoundedIcon />}
                             size="sm"
                         >
-                            Download PDF
+                            Download excel report
                         </Button>
                     </Box>
                     <OrderTable />

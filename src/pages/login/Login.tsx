@@ -19,6 +19,7 @@ import LoginService from "../../service/LoginService";
 import Link from '@mui/joy/Link';
 import {Link as LinkTo} from 'react-router-dom';
 import {useNavigate} from "react-router-dom";
+import logo1 from "../../logo1.png";
 
 interface FormElements extends HTMLFormControlsCollection {
     email: HTMLInputElement;
@@ -114,12 +115,12 @@ const Login = () => {
                             display: 'flex',
                             justifyContent: 'space-between',
                         }}
-                    >
+                    >  
                         <Box sx={{ gap: 2, display: 'flex', alignItems: 'center' }}>
-                            <IconButton variant="soft" color="primary" size="sm">
-                                <BadgeRoundedIcon />
+                            <IconButton className="flex items-center justify-start gap-4 w-full">
+                                <img src={logo1} className="w-8" alt="" />
                             </IconButton>
-                            <Typography level="title-lg">Company logo</Typography>
+                            <Typography level="title-lg">InterCafe </Typography>
                         </Box>
                         <ColorSchemeToggle />
                     </Box>
@@ -190,7 +191,7 @@ const Login = () => {
                     </Box>
                     <Box component="footer" sx={{ py: 3 }}>
                         <Typography level="body-xs" textAlign="center">
-                            © Your company {new Date().getFullYear()}
+                            © InterCafe {new Date().getFullYear()}
                         </Typography>
                     </Box>
                 </Box>
