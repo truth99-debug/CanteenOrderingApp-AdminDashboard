@@ -147,7 +147,7 @@ const Home = (user: any) => {
 
             const data = await response.json();
             console.log(data);
-            setImageURL(data.url); // Update state with the URL of the uploaded image
+            setImageURL(data.url);
         } catch (error) {
             console.error('Error uploading image:', error);
         }
