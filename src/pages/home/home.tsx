@@ -42,7 +42,7 @@ const Home = (user: any) => {
         price: ""
     });
     const [announcements, setAnnouncements] = useState([]);
-    const [image , setImage] = useState({name : ""});
+    const [image , setImage] : any = useState();
     const [name , setName] = useState("")
     const [description , setDescription]  = useState("");
     const [price , setPrice] = useState("");
@@ -92,7 +92,7 @@ const Home = (user: any) => {
     }
 
     const handleCancelImageUpload = () => {
-        setImage({name : ""})
+        setImage(null)
     }
 
     const handleInputMOD = (event : any) => {
@@ -116,27 +116,17 @@ const Home = (user: any) => {
     }
 
     const uploadImage = async () => {
-        console.log("uploadImage")
 
-        const [imageURL, setImageURL] = useState<string | null>(null);
-        const [selectedFile, setSelectedFile] = useState<File | null>(null);
-    
-        const handleFileSelection = (event: React.ChangeEvent<HTMLInputElement>) => {
-            if (event.target.files && event.target.files.length > 0) {
-                setSelectedFile(event.target.files[0]);
-            }
-        };
-
-        if (!selectedFile) {
+        if (!image) {
             console.error('No file selected');
             return;
         }
 
         try {
             const formData = new FormData();
-            formData.append('image', selectedFile);
+            formData.append('foodImages', image);
 
-            const response = await fetch('http://localhost:8089/storeImage', {
+            const response = await fetch('http://localhost:8089/api/v1/admin/storeImage', {
                 method: 'POST',
                 body: formData,
             });
@@ -147,7 +137,7 @@ const Home = (user: any) => {
 
             const data = await response.json();
             console.log(data);
-            setImageURL(data.url);
+            // setImageURL(data.url);
         } catch (error) {
             console.error('Error uploading image:', error);
         }
@@ -314,7 +304,7 @@ const Home = (user: any) => {
 
                                                     {image?.name &&
                                                         <>
-                                                            <Button variant="outlined" component="span" className={'upload-button'}>
+                                                            <Button variant="outlined" component="span" className={'upload-button'} onClick={uploadImage}>
                                                                 <Typography style={{fontSize: 'smaller', fontWeight: 'bold'}}>
                                                                     Upload
                                                                 </Typography>
@@ -496,7 +486,7 @@ const Home = (user: any) => {
 
                                                                 {image?.name &&
                                                                     <>
-                                                                        <Button variant="outlined" component="span" className={'upload-button'} onClick={(e) => {uploadImage()}}>
+                                                                        <Button variant="outlined" component="span" className={'upload-button'} onClick={uploadImage}>
                                                                             <Typography style={{fontSize: 'smaller', fontWeight: 'bold'}}>
                                                                                 Upload
                                                                             </Typography>
